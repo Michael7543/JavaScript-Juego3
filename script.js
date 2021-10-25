@@ -244,7 +244,7 @@ $(document).ready(function(){
       }
     }
   }
-  
+  //rotar pieza
   function rotate(matrix, dir){
     for(y=0; y < matrix.length; y++){
       for(x=0; x < y; x++){
