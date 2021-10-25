@@ -1,0 +1,60 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tetris</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+</head>
+<body>
+  <div class="wrapper">
+
+    <div id="newGame" class="modal">
+        <div class="modal-content">
+          <h4>Tetris</h4>
+          <button onclick="newGame()" id="newGameBtn" class="modal-close waves-effect waves-light btn" style="width:250px">Nuevo Juego</button>
+          </div>
+        </div>
+
+    <div id="pause" class="modal">
+        <div class="modal-content">
+          <h4>Juego Pausado</h4>
+          <button onclick="pauseGame()" id="pauseBtn" class="modal-close waves-effect waves-light btn">Renaudar</button>
+          <button onclick="newGame()" id="StartNewBtn" class="modal-close waves-effect waves-light btn">Comenzar Nuevo Juego</button>
+          </div>
+        </div>
+
+    <div id="gameOver" class="modal">
+        <div class="modal-content">
+          <h4>Game Over</h4>
+              <div class="yourScore"></div>
+             
+              <br><br>
+             
+					<br>
+              <a onclick="newGame()" class="modal-close waves-effect waves-light btn">Comenzar Nuevo Juego</a>
+          </div>
+        </div>
+
+    <div class="detailsLeft">
+      <div class="score"></div>
+      <div class="level"></div>
+      <div class="highScores"></div>
+    </div>
+
+    <canvas class="tetris" width="240" height="400"></canvas>
+
+    <div class="detailsRight">
+        <canvas class="next" width="160" height="160"></canvas>
+       
+       
+      </div>  
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
