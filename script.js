@@ -97,7 +97,7 @@ $(document).ready(function(){
     }
     return matrix;
   }
-  
+ // Creacion de piezas 
   function createPiece(type){
     if (type === 'I'){
       return [
@@ -143,7 +143,7 @@ $(document).ready(function(){
       ];
     }
   }
-  
+  //Siguiente pieza
   function drawNext(){
     nextContext.fillStyle = '#000';
     nextContext.fillRect(0, 0, nextCanvas.width, nextCanvas.height); 
