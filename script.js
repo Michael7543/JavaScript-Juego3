@@ -6,9 +6,8 @@ $(document).ready(function(){
     });
   
       loadHighScores();
-      
+//barra de puntaje  
     let highScoreMin;
-  
     function loadHighScores() {
           $.ajax({
               url: 'https://api.mlab.com/api/1/databases/tetrishighscores/collections/scores?s={"score":-1}&apiKey=E8dx03lqLdc5pG_K002t_lJrPOwDi1vG',
@@ -97,7 +96,7 @@ $(document).ready(function(){
     }
     return matrix;
   }
- // Creacion de piezas 
+ // movimiento de la piezas por todo el espacio del juego
   function createPiece(type){
     if (type === 'I'){
       return [
@@ -151,7 +150,7 @@ $(document).ready(function(){
     drawMatrix(nextArena, {x: 0, y:0}, nextContext);
     drawMatrix(player.next, {x: 1, y: 1}, nextContext);
   }
-  
+
   function draw(){
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -159,7 +158,7 @@ $(document).ready(function(){
     drawMatrix(arena, {x: 0, y: 0}, context);
     drawMatrix(player.matrix, player.pos, context);
   }
-  
+//mostrar en la pantalla las piezas que van a caer
   function drawMatrix(mat, offset, cont){
     mat.forEach((row, y) => {
       row.forEach((value, x) =>{
@@ -170,7 +169,7 @@ $(document).ready(function(){
       });
     });
   }
-  
+//las piezas caen despues que la anterior alla caido totalmente
   function merge(arena, player){
     player.matrix.forEach((row, y) => {
       row.forEach((value, x) => {
@@ -180,7 +179,7 @@ $(document).ready(function(){
       });
     });
   }
-  
+//caer la pieza
   function playerDrop(){
     player.pos.y++;
     if(collide(arena, player)){
@@ -192,14 +191,14 @@ $(document).ready(function(){
     }
     dropCounter = 0;
   }
-  
+//mover figuras
   function playerMove(dir){
     player.pos.x += dir;
     if(collide(arena, player)){
       player.pos.x -= dir;
     }
   }
-  
+//inicio par jugar otra vez
   function playerReset(){
     const pieces = 'IJLOSTZ';
     if(player.next === null){
@@ -219,7 +218,6 @@ $(document).ready(function(){
       
     }
   }
-  
   function clearPlayer(){
     player.dropInterval = 1000;
       player.DROP_SLOW = 1000;
@@ -228,7 +226,7 @@ $(document).ready(function(){
       arena.forEach(row => row.fill(0));
       updateScore();
   }
-  
+   //rotar figuras
   function playerRotate(dir){
     const pos = player.pos.x
     let offset = 1;
@@ -244,7 +242,7 @@ $(document).ready(function(){
       }
     }
   }
-  //rotar pieza
+ 
   function rotate(matrix, dir){
     for(y=0; y < matrix.length; y++){
       for(x=0; x < y; x++){
@@ -257,7 +255,7 @@ $(document).ready(function(){
       matrix.reverse();
     }
   }
-  
+//caida de pieza
   let lastTime = 0;
   function update(time = 0){
     $('#pause').off();
@@ -274,23 +272,22 @@ $(document).ready(function(){
         draw();
       }
   }
-  
   function updateScore(){
     document.querySelector('.score').innerHTML = `<p><b><u>Score:</u> ${player.score}</b></p>`;
     document.querySelector('.level').innerHTML = `<p><b><u>Level:</u> ${player.level}</b></p>`;
   }
-  
+//colores de las figuras
   const colors = [
     null, 
-    '#03A9F4',//I
-    '#9C27B0',//J
-    '#FFC107',//L
-    '#E91E63',//O
-    '#00BCD4',//S 
-    '#8BC34A',//T
-    '#3F51B5'//Z
+    '#03A9F4',
+    '#9C27B0',
+    '#FFC107',
+    '#E91E63',
+    '#00BCD4',
+    '#8BC34A',
+    '#3F51B5'
   ];
-  
+ //movimiento de las figuras de izquierda a derecha
   function keyListener(e){
     if(e.type === 'keydown'){
       if(e.keyCode === 37){
@@ -317,7 +314,7 @@ $(document).ready(function(){
       }
     }
   };
-  
+//pausar juego y parar el juego si el jugador perdio, mostrando su puntaje.
   function pauseGame(){
     if(pause === true){	
       pause = false;	
@@ -356,7 +353,7 @@ $(document).ready(function(){
       }
     }
   }
-  
+//empezar juego
   function newGame(){
       loadHighScores();
     clearPlayer();
@@ -368,28 +365,5 @@ $(document).ready(function(){
     document.addEventListener('keyup', keyListener);
   }
   
-  $('#highScore').on('submit', (e) => {
-    e.preventDefault();
-    let name = $('#name').val();
-  
-    $.ajax({
-      url: 'https://api.mlab.com/api/1/databases/tetrishighscores/collections/scores?apiKey=E8dx03lqLdc5pG_K002t_lJrPOwDi1vG',
-      data: JSON.stringify({
-        "date": new Date,
-        "name": name,
-        "score": player.score,
-        "level": player.level
-      }),
-      type: "POST",
-      contentType: "application/json",
-      success: (data) => {
-        $('#highScore').html( '<h4>Thank You!</h4>' );
-      },
-      error: (xhr, status, err) => {
-        console.log(err);
-      }
-    });
-  });    
-  
-  update();
+
   
